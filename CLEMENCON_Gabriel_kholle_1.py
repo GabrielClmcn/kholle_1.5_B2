@@ -13,8 +13,7 @@ import os
 
 list = []
 
-
-#Creating, reading, writing, listing and deleting the file
+#Creating file, reading, writing, listing and deleting elements of the file
 def creater():
   with open('list.csv', 'w') as e:
     csv.writer(e)
@@ -35,10 +34,14 @@ def addCsv(add):
 #-l
 def showList():
   reader()
-  print(list)
 
 #-c
-# def delete():
+def delete():
+  with open('list.csv', 'r+') as h:
+    csv_rM = h.readlines()
+    h.seek(0)
+    for row in csv_rM:
+      h.truncate()
 
 
 
@@ -61,14 +64,14 @@ def showList():
 #sorting the values in the file
 #-t
 def asc():
-  desc_list =
+  asc_list = a
   reader()
   asc_list.sort()
   writer(asc_list)
 
 #-d
 def desc():
-  desc_list = 
+  desc_list = a
   reader()
   desc_list.sort(reverse = True)
   writer(desc_list)
@@ -98,8 +101,10 @@ if args.a:
   print('Done')
 elif args.l:
   showList()
+  print(list)
 elif args.c:
-  print('c')
+  delete()
+  print('Elements in the file are deleted')
 
 elif args.s:
   if args.max:
