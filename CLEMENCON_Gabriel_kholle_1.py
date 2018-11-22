@@ -1,37 +1,106 @@
 #!/usr/bin/python3.6
-###
-# CLEMENCON_Gabriel_kholle_1.py
-# Ce programme fait de simples opérations sur une liste de nombres stocker dans un .csv
-# This soft make simple operations on a list of int stored in a .csv
-# 20/11/2018
-# Gabriel Clémençon
-###
+############################################################################################################################
+#                                                 CLEMENCON_Gabriel_kholle_1.py                                            #
+#                     Ce programme fait de simples opérations sur une liste de nombres stocker dans un .csv                #
+#                                This soft make simple operations on a list of int stored in a .csv                        #
+#                                                         20/11/2018                                                       #
+#                                                      Gabriel Clémençon                                                   #
+############################################################################################################################
 
 import argparse
 import csv
+import os
+
+list = []
+
+
+#Creating, reading, writing, listing and deleting the file
+def creater():
+  with open('list.csv', 'w') as e:
+    csv.writer(e)
+#-a
+def reader():
+  with open('list.csv', 'r') as f:
+    csv_r = csv.reader(f)
+    for row in csv_r:
+      list.append(row)
+
+def writer(val):
+  with open('list.csv', 'w') as g:
+    csv_w = csv.writer(g)
+    csv_w.writerow(val)
+def addCsv(add):
+  list.append(add)
+
+#-l
+def showList():
+  reader()
+  print(list)
+
+#-c
+# def delete():
+
+
+
+#Operations of values in the file
+#-s
+# def max():
+  
+
+# def min():
+  
+
+# def average():
+
+
+
+# def sum():
+
+
+
+#sorting the values in the file
+#-t
+def asc():
+  desc_list =
+  reader()
+  asc_list.sort()
+  writer(asc_list)
+
+#-d
+def desc():
+  desc_list = 
+  reader()
+  desc_list.sort(reverse = True)
+  writer(desc_list)
 
 #args parsing
 parser = argparse.ArgumentParser(description='Simple operations on a list of int stored in a csv file')
-parser.add_argument('-l', action=, help='show the list')#todo
-parser.add_argument('-a', action=, nargs='+', type=int, help='add elements in the list')#todo
-parser.add_argument('-c', action=, help='delete all elements of the list')#todo
-parser.add_argument('-s', action=, help='show the max/min/average or sum of the list') #todo
-parser.add_argument ('--max', action=, help='show the max value of the list')#todo
-parser.add_argument ('--min', action=, help='show the min value of the list')#todo
-parser.add_argument ('--moy', action=, help='show the average of the list')#todo
-parser.add_argument ('--sum', action=, help='show the sum of the list')#todo
-parser.add_argument('-t', action=, help='show the list in ASC order') #todo
-parser.add_argument('-d', '--desc', action=, help='show the list in DESC order') #todo
+parser.add_argument('-l', action='store_true', help='show the list')
+parser.add_argument('-a', nargs='+',help='add elements in the list')
+parser.add_argument('-c', action='store_true', help='delete all elements of the list')#todo
+parser.add_argument('-s', action='store_true', help='show the max/min/average or sum of the list') #todo
+parser.add_argument ('--max', action='store_true', help='show the max value of the list') #todo
+parser.add_argument ('--min', action='store_true', help='show the min value of the list') #todo
+parser.add_argument ('--moy', action='store_true', help='show the average of the list') #todo
+parser.add_argument ('--sum', action='store_true', help='show the sum of the list') #todo
+parser.add_argument('-t', action='store_true', help='show the list in ASC order')
+parser.add_argument('-d', '--desc', action='store_true', help='show the list in DESC order')
 args = parser.parse_args()
 
 
-#exec the method from the right args
+#execute the method with the associate args
 if args.a:
-  print('elements created')
+  creater()
+  reader()
+  for n in args.a:
+    addCsv(n)
+    writer(list)
+  print('Done')
 elif args.l:
-  print('l')
+  showList()
 elif args.c:
   print('c')
+
 elif args.s:
   if args.max:
     print('max')
@@ -41,7 +110,10 @@ elif args.s:
     print('moy')
   elif args.sum:
     print('sum')
+
 elif args.t:
-  print('t')
+  asc()
+  print ('Done')
 elif args.desc:
-  print('desc')
+  desc()
+  print ('Done')
