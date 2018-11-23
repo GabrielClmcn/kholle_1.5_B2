@@ -9,9 +9,12 @@
 
 import argparse
 import csv
+from statistics import mean
 
 list = []
 
+
+#-- methods --#
 #Creating file, reading, writing, listing and deleting elements of the file
 #for creater(), reader() and writer(val) just reading python doc https://docs.python.org/3.6/library/csv.html#csv.reader
 def creater():
@@ -22,7 +25,8 @@ def reader():
   with open('list.csv', 'r') as f:
     csv_r = csv.reader(f)
     for row in csv_r:
-      list.append(row)
+      for i in range(len(row)):
+        list.append(row[i])
 
 def writer(val):
   with open('list.csv', 'w') as g:
@@ -46,59 +50,61 @@ def delete(): #soluce https://stackoverflow.com/a/45294821
 
 
 #Operations of values in the file
-#How I convert my list to int :
+#How I convert my list to int : https://stackoverflow.com/a/7368914 or https://stackoverflow.com/a/1614247
 #-s
-def max():
-  maxVal_list = 
+def maxlist():
   reader()
-  max_val = max(maxVal_list)
+  maxVal_list = [int(i) for i in list]
+  return str(max(maxVal_list))
 
-def min():
-  minVal_list = 
+def minlist():
   reader()
-  min_val = min(minVal_list)  
+  minVal_list = [int(i) for i in list]
+  return str(min(minVal_list))  
 
 def average():
-  aveVal_list = 
   reader()
-  ave_val = sum(aveVal_list) / len(aveVal_list)
+  aveVal_list = [int(i) for i in list]
+  return str(mean(aveVal_list))
 
-def sum():
-  sumVal_list = 
+def somme():
+  sumVal_list = [int(i) for i in list]
   reader()
-  sum_val = sum(sumVal_list)
+  return str(sum(sumVal_list))
 
 
 #sorting the values in the file
 #-t
 def asc():
-  asc_list = 
+  asc_list = [int(i) for i in list]
   reader()
   asc_list.sort()
   writer(asc_list)
 
 #-d
 def desc():
-  desc_list = 
+  desc_list = [int(i) for i in list]
   reader()
   desc_list.sort(reverse = True)
   writer(desc_list)
 
 
 #args parsing
+#just reading python doc https://docs.python.org/3.6/library/argparse.html#creating-a-parser
 parser = argparse.ArgumentParser(description='Simple operations on a list of int stored in a csv file')
 parser.add_argument('-l', action='store_true', help='show the list')
 parser.add_argument('-a', nargs='+',help='add elements in the list')
 parser.add_argument('-c', action='store_true', help='delete all elements of the list')
-parser.add_argument('-s', action='store_true', help='show the max/min/average or sum of the list') #todo
-parser.add_argument ('--max', action='store_true', help='show the max value of the list') #todo
-parser.add_argument ('--min', action='store_true', help='show the min value of the list') #todo
-parser.add_argument ('--moy', action='store_true', help='show the average of the list') #todo
-parser.add_argument ('--sum', action='store_true', help='show the sum of the list') #todo
 parser.add_argument('-t', action='store_true', help='show the list in ASC order')
 parser.add_argument('-d', '--desc', action='store_true', help='show the list in DESC order')
+subparsers = parser.add_argument_group(title='subcommands', description='descrp')
+# parser_s = subparsers.add_parser('-s', help='pls')
+subparsers.add_argument('-s', action='store_true', help='')
+subparsers.add_argument('--max', action='store_true', help='show the max value of the list')
+subparsers.add_argument('--min', action='store_true', help='show the min value of the list')
+subparsers.add_argument('--moy', action='store_true', help='show the average of the list')
+subparsers.add_argument('--sum', action='store_true', help='show the sum of the list')
 args = parser.parse_args()
-
 
 #execute the method with the associate args
 if args.a:
@@ -115,21 +121,19 @@ elif args.l:
 elif args.c:
   delete()
   print('Elements in the file are deleted')
-
-#convert list to str
 elif args.s:
-  max()
-  print('The maximum value of the list is : ' + max_val)
   if args.max:
-    max()
-    print('The maximum value of the list is : ' + max_val)
+    maxlist()
+    print('The maximum value of the list is : ' + maxlist())
   elif args.min:
-    print('The minimum value of the list is : ' + min_val)
+    minlist()
+    print('The minimum value of the list is : ' + minlist())
   elif args.moy:
-    print('The average value of the list is : ' + ave_val)
+    average()
+    print('The average value of the list is : ' + average())
   elif args.sum:
-    print('The sum of values of the list is : ' + sum_val)
-
+    somme()
+    print('The sum of values of the list is : ' + somme())
 elif args.t:
   asc()
   print ('Elements in the file are sorted in ASC')
