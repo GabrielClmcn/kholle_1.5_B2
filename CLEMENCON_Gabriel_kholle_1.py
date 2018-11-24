@@ -50,7 +50,7 @@ def delete(): #soluce https://stackoverflow.com/a/45294821
 
 
 #Operations of values in the file
-#How I convert my list to int : https://stackoverflow.com/a/7368914 or https://stackoverflow.com/a/1614247
+#How I convert my list to int : https://stackoverflow.com/a/7368914
 #-s
 def maxlist():
   reader()
@@ -76,15 +76,15 @@ def somme():
 #sorting the values in the file
 #-t
 def asc():
-  asc_list = [int(i) for i in list]
   reader()
+  asc_list = [int(i) for i in list]
   asc_list.sort()
   writer(asc_list)
 
 #-d
 def desc():
-  desc_list = [int(i) for i in list]
   reader()
+  desc_list = [int(i) for i in list]
   desc_list.sort(reverse = True)
   writer(desc_list)
 
@@ -97,9 +97,8 @@ parser.add_argument('-a', nargs='+',help='add elements in the list')
 parser.add_argument('-c', action='store_true', help='delete all elements of the list')
 parser.add_argument('-t', action='store_true', help='show the list in ASC order')
 parser.add_argument('-d', '--desc', action='store_true', help='show the list in DESC order')
-subparsers = parser.add_argument_group(title='subcommands', description='descrp')
-# parser_s = subparsers.add_parser('-s', help='pls')
-subparsers.add_argument('-s', action='store_true', help='')
+subparsers = parser.add_argument_group(title='subcommands', description='commands who need the -s argument')
+subparsers.add_argument('-s', action='store_true', help='do nothing')
 subparsers.add_argument('--max', action='store_true', help='show the max value of the list')
 subparsers.add_argument('--min', action='store_true', help='show the min value of the list')
 subparsers.add_argument('--moy', action='store_true', help='show the average of the list')
