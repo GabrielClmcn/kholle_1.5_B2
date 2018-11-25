@@ -95,14 +95,14 @@ parser = argparse.ArgumentParser(description='Simple operations on a list of int
 parser.add_argument('-l', action='store_true', help='show the list')
 parser.add_argument('-a', nargs='+',help='add elements in the list')
 parser.add_argument('-c', action='store_true', help='delete all elements of the list')
-parser.add_argument('-t', action='store_true', help='show the list in ASC order')
-parser.add_argument('-d', '--desc', action='store_true', help='show the list in DESC order')
-subparsers = parser.add_argument_group(title='subcommands', description='commands who need the -s argument')
+subparsers = parser.add_argument_group(title='subcommands', description='commands who need the -s or -t argument')
 subparsers.add_argument('-s', action='store_true', help='do nothing')
 subparsers.add_argument('--max', action='store_true', help='show the max value of the list')
 subparsers.add_argument('--min', action='store_true', help='show the min value of the list')
 subparsers.add_argument('--moy', action='store_true', help='show the average of the list')
 subparsers.add_argument('--sum', action='store_true', help='show the sum of the list')
+subparsers.add_argument('-t', action='store_true', help='show the list in ASC order')
+subparsers.add_argument('--desc', action='store_true', help='show the list in DESC order')
 args = parser.parse_args()
 
 #execute the method with the associate args
@@ -134,8 +134,9 @@ elif args.s:
     somme()
     print('The sum of values of the list is : ' + somme())
 elif args.t:
-  asc()
-  print ('Elements in the file are sorted in ASC')
-elif args.desc:
-  desc()
-  print ('Elements in the file are sorted in DESC')
+  if args.desc:
+    desc()
+    print ('Elements in the file are sorted in DESC')
+  else:
+    asc()
+    print ('Elements in the file are sorted in ASC')
